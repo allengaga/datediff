@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="두 날짜 사이의 일 수 차이를 계산하는 계산기입니다.">
+  <meta name="keywords" content="날짜 계산, 일 수 차이, 날짜 일 수 차이 계산기">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>날짜 일 수 차이 계산기</title>
+  <link rel="icon" href="image/base64-16.png" sizes="16x16" type="image/png">
+  <link rel="icon" href="image/base64-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="image/base64.png" sizes="64x64" type="image/png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-top: 0;
+      text-align: center;
+      padding-bottom: 10px;
+    }
+
+    .container {
+      width: 50%; /* 브라우저 절반의 공간을 차지하도록 설정 */
+      margin: 0 auto; /* 가운데 정렬 */
+    }
+
+    .input-container {
+      margin-bottom: 20px;
+    }
+
+    .input-container label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+
+    .input-container input {
+      width: 100%;
+      padding: 5px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+    }
+
+    .result-container {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .result-container p {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .result-container p span {
+      font-weight: bold;
+    }
+
+    .button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .button-container button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #999;
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <h1>날짜 일 수 차이 계산기</h1>
+
+  <div class="input-container">
+    <label for="start-date">시작 날짜:</label>
+    <input type="date" id="start-date" lang="ko" required>
+  </div>
+
+  <div class="input-container">
+    <label for="end-date">종료 날짜:</label>
+    <input type="date" id="end-date" lang="en" required>
+  </div>
+
+  <div class="button-container">
+    <button onclick="calculateDays()">일 수 차이 계산하기</button>
+  </div>
+
+  <div class="result-container" id="result-container">
+    <p>두 날짜 사이의 일 수 차이는 <span id="result"></span>일 입니다.</p>
+  </div>
+</div>
+
+<script>
+    function calculateDays() {
+      var startDateInput = document.getElementById('start-date');
+      var endDateInput = document.getElementById('end-date');
+
+      // 날짜 형식 유효성 검사
+      var startDateValue = startDateInput.value;
+      var endDateValue = endDateInput.value;
+      var datePattern = /^\d{4}-\d{2}-\d{2}$/;
+
+      if (!datePattern.test(startDateValue) || !datePattern.test(endDateValue)) {
+        alert('날짜 형식은 YYYY-MM-DD 여야 합니다.');
+        return;
+      }
+
+      var startDate = new Date(startDateValue);
+      var endDate = new Date(endDateValue);
+
+      if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+        alert('유효한 날짜를 입력해주세요.');
+        return;
+      }
+
+      var timeDiff = endDate.getTime() - startDate.getTime();
+      var daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+
+      document.getElementById('result').textContent = daysDiff;
+      document.getElementById('result-container').style.display = 'block';
+    }
+  </script>
+
+<div class="copyright">
+  CopyRight @datediff.kr 모든 권리 보유
+</div>
+</body>
+
+</html>
